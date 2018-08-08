@@ -1,5 +1,5 @@
-import {initInventory, Inventory} from './Inventory'
-import {AttackItem, DefenceItem, initAttackItem, initDefenceItem} from './Item'
+import {addItemToInventory, initInventory, Inventory, removeItemFromInventoryByName} from './Inventory'
+import {AttackItem, DefenceItem, initAttackItem, initDefenceItem, Item} from './Item'
 
 export interface PlayerState {
     health: number,
@@ -29,7 +29,15 @@ export const initDefaultPlayer = (): PlayerState => ({
 
 const sub = (num: number, subtract: number): number => num - subtract
 
-export const countZero = (num: number): number[] => num > 0 ? [num, ...countZero(num - 1)] : [num]
+export const pickUpItem = (player: PlayerState, item: Item): PlayerState => ({
+    ...player,
+    inventory: addItemToInventory(player.inventory, item)
+})
+
+export const throwAwayItem = (player: PlayerState, name: string): PlayerState => ({
+    ...player,
+    inventory: removeItemFromInventoryByName(player.inventory, name)
+})
 
 export const battle = (battleState: Battle): Battle[] =>
     areBothAlive(battleState) ?
@@ -50,7 +58,3 @@ const generateState = (battleState: Battle) => {
     }
     return [state, ...battle(state)]
 }
-
-
-
-

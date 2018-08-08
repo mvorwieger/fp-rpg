@@ -1,5 +1,7 @@
 import "jasmine"
-import {battle, Battle, initDefaultPlayer, PlayerState} from '../src/Player'
+import {battle, Battle, initDefaultPlayer, initPLayer, PlayerState} from '../src/Player'
+import {initAttackItem, initDefenceItem} from '../src/Item'
+import {initInventory} from '../src/Inventory'
 
 let p: PlayerState
 let o: PlayerState
@@ -12,6 +14,15 @@ describe('Player', function () {
     it('should create Players', function () {
         expect(p).toBeTruthy()
         expect(o).toBeTruthy()
+    })
+
+    it('should create Custom Player', function () {
+        const cPlayer = initPLayer(
+            100,
+            initAttackItem('test', 2, 2),
+            initDefenceItem('test', 2, 2),
+            initInventory()
+        )
     })
 
     it('should create a battle', function () {
