@@ -1,12 +1,8 @@
 import {Item} from './Item'
 
 export interface Inventory {
-    items: Item[]
+    items: Item[],
 }
-
-export const createInventoryAdder = (inventory: Inventory) => (item: Item) => addItemToInventory(inventory, item)
-
-export const createInventoryRemover = (inventory: Inventory) => (name: string) => removeItemFromInventoryByName(inventory, name)
 
 export const initInventory = (items?: Item[]): Inventory => ({items: items ? items : []})
 
