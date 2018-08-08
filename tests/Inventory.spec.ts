@@ -1,6 +1,6 @@
 import "jasmine"
 import {
-    addItemToInventory,
+    addItemToInventory, createInventoryAdder, createInventoryRemover,
     initInventory,
     Inventory,
     removeItemFromInventoryByName,
@@ -33,8 +33,8 @@ describe('Inventory', function () {
             const itemName = "test"
             const item: Item = initItem(itemName, 0)
             inventory.items = [item]
-            const newItem = removeItemFromInventoryByName(inventory, itemName)
-            expect(newItem).not.toContain(item)
+            const newInvetory = removeItemFromInventoryByName(inventory, itemName)
+            expect(newInvetory.items).not.toContain(item)
         })
     })
 
@@ -42,6 +42,28 @@ describe('Inventory', function () {
         it('should reset the inventory', function () {
             inventory.items = [initItem("foo", 0), initItem("bar", 0)]
             expect(resetInventory(inventory).items.length).toBe(0)
+        })
+    })
+
+    describe('createInventoryAdder', function () {
+        it('should add an Item', function () {
+            const newItem = initItem("test", 0)
+            const addItem = createInventoryAdder(inventory)
+            const newInventory = addItem(newItem)
+
+            expect(newInventory.items).toContain(newItem)
+        })
+    })
+
+    describe('createInventoryRemover', function () {
+        it('should remove an Item', function () {
+            const itemName = "test"
+            const newItem = initItem(itemName, 0)
+            inventory.items = [newItem]
+            const removeItemByName = createInventoryRemover(inventory)
+            const newInventory = removeItemByName(itemName)
+
+            expect(newInventory.items).not.toContain(newItem)
         })
     })
 })
