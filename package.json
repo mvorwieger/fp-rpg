@@ -4,7 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "nodemon --ext ts --exec ts-node node_modules/jasmine/bin/jasmine tests/**.spec.ts",
+    "test": "ts-node node_modules/jasmine/bin/jasmine tests/**.spec.ts",
+    "test:watch": "nodemon --ext ts --exec npm run test",
     "start": "nodemon --ext ts --exec ts-node index.ts"
   },
   "keywords": [],
