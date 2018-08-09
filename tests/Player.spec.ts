@@ -19,9 +19,14 @@ describe('Player', function () {
     it('should create Custom Player', function () {
         const cPlayer = initPLayer(
             100,
+            {
+                level: 0,
+                progress: 0
+            },
             initAttackItem('test', 2, 2),
             initDefenceItem('test', 2, 2),
-            initInventory()
+            initInventory(),
+            0
         )
     })
 
