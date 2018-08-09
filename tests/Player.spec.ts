@@ -23,6 +23,7 @@ describe('Player', function () {
                 level: 0,
                 progress: 0
             },
+            'init player name',
             initAttackItem('test', 2, 2),
             initDefenceItem('test', 2, 2),
             initInventory(),

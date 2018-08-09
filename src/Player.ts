@@ -4,6 +4,7 @@ import {Reward} from './Level'
 
 export interface PlayerState {
     health: number,
+    name: string,
     level: PlayerLevel,
     weapon: AttackItem,
     shield: DefenceItem,
@@ -21,8 +22,9 @@ export interface Battle {
     opponent: PlayerState
 }
 
-export const initPLayer = (health: number, level: PlayerLevel, weapon: AttackItem, shield: DefenceItem, inventory: Inventory, cash: number): PlayerState => ({
+export const initPLayer = (health: number, level: PlayerLevel, name: string, weapon: AttackItem, shield: DefenceItem, inventory: Inventory, cash: number): PlayerState => ({
     health,
+    name,
     level,
     weapon,
     shield,
@@ -32,6 +34,7 @@ export const initPLayer = (health: number, level: PlayerLevel, weapon: AttackIte
 
 export const initDefaultPlayer = (): PlayerState => ({
     health: 100,
+    name: 'Default Player',
     level: {
         level: 0,
         progress: 0
@@ -81,9 +84,14 @@ const calcPlayerLevel = (playerLevel: PlayerLevel, levelReward: Reward): PlayerL
     }
 }
 
+/**
+ *
+ * @param battleState
+ * @return battle logs
+ */
 export const battle = (battleState: Battle): Battle[] =>
     areBothAlive(battleState) ?
-        generateState(battleState) : [battleState]
+        generateBattleState(battleState) : [battleState]
 
 const areBothAlive = (battleState: Battle): boolean =>
     battleState.player.health > 0 && battleState.opponent.health > 0
@@ -93,7 +101,7 @@ const performAttack = (receiver: PlayerState, attacker: PlayerState): PlayerStat
     health: sub(receiver.health, attacker.weapon.attackDamage)
 })
 
-const generateState = (battleState: Battle) => {
+const generateBattleState = (battleState: Battle) => {
     const state = {
         player: performAttack(battleState.player, battleState.opponent),
         opponent: performAttack(battleState.opponent, battleState.player)
