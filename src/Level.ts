@@ -9,6 +9,7 @@ export interface Level {
 
 export interface LevelResult {
     playerWon: boolean,
+    logs: Battle[],
     reward?: Reward
 }
 
@@ -24,13 +25,15 @@ export const initLevel = (player: PlayerState, opponent: PlayerState, reward: Re
     reward
 })
 
-const noReward = (): Reward => ({experience: 0, cash: 0})
+export const noReward = (): Reward => ({experience: 0, cash: 0})
+
 export const startLevel = (level: Level): LevelResult => {
     const battleLogs = battle({player: level.player, opponent: level.opponent})
     const didPlayerWin = playerWon(battleLogs)
 
     return {
         playerWon: didPlayerWin,
+        logs: battleLogs,
         reward: didPlayerWin ? level.reward : noReward()
     }
 }

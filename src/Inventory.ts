@@ -1,7 +1,7 @@
 import {Item} from './Item'
 
 export interface Inventory {
-    items: Item[],
+    items: Item[]
 }
 
 export const initInventory = (items?: Item[]): Inventory => ({items: items ? items : []})
