@@ -1,0 +1,25 @@
+version: "2"
+services:
+  node:
+    image: "node:8"
+    user: "node"
+    working_dir: /home/node/app
+    environment:
+    - NODE_ENV=production
+    volumes:
+    - ../:/home/node/app
+    expose:
+    - "8081"
+    command: "npm start"
+  mongo:
+    image: "mongo:latest"
+    container_name: "mongodb"
+    environment:
+    - MONGO_DATA_DIR=/data/db
+    - MONGO_LOG_DIR=/dev/null
+    restart: "always"
+    volumes:
+    - ./data/db:/data/db
+    ports:
+    - 27017:27017
+    command: mongod --smallfiles --logpath=/dev/null
