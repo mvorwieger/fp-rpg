@@ -1,9 +1,10 @@
 import * as readline from "readline"
-import {Battle, collectLevelRewards, goToRoom} from './Player'
+import {collectLevelRewards, goToRoom} from './Player'
 import {Room} from './Room'
 import {cliData} from './data/cli'
 import {GlobalPlayerState} from './GlobalPlayerState'
 import {Level, startLevel} from './Level'
+import {Battle} from './Battle'
 
 const r1 = readline.createInterface({
     input: process.stdin,

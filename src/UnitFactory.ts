@@ -1,5 +1,11 @@
-import {Unit} from './Player'
 import {AttackItem, DefenceItem, initAttackItem, initDefenceItem} from './Item'
+
+export interface Unit {
+    health: number
+    name: string,
+    weapon: AttackItem,
+    shield: DefenceItem
+}
 
 const initUnit = (health: number, name: string, weapon: AttackItem, shield: DefenceItem): Unit => ({
     health,
@@ -15,7 +21,7 @@ const getWeaponForDifficulty = (difficutlty: number): AttackItem =>
 const getShieldForDifficulty = (difficulty: number): DefenceItem =>
     initDefenceItem('ShieldDummy', 10, difficulty * 0.5)
 
-export const createUnitForPlayerLevel = (difficulty: number) =>
+export const createUnitForPlayerLevel = (difficulty: number): Unit =>
     initUnit(
         100 * difficulty,
         getRandomUnitName(),

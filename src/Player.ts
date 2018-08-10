@@ -1,15 +1,9 @@
 import {addItemToInventory, initInventory, Inventory, removeItemFromInventoryByName} from './Inventory'
 import {AttackItem, DefenceItem, initAttackItem, initDefenceItem, Item} from './Item'
 import {Reward} from './Level'
-import {sub} from './util'
 import {initDefaultRoom, Room} from './Room'
+import {Unit} from './UnitFactory'
 
-export interface Unit {
-    health: number
-    name: string,
-    weapon: AttackItem,
-    shield: DefenceItem
-}
 export interface PlayerState extends Unit {
     level: PlayerLevel,
     inventory: Inventory,
@@ -20,11 +14,6 @@ export interface PlayerState extends Unit {
 export interface PlayerLevel {
     level: number,
     progress: number
-}
-
-export interface Battle {
-    player: PlayerState,
-    opponent: Unit
 }
 
 export const initPLayer = (health: number, level: PlayerLevel, name: string, weapon: AttackItem, shield: DefenceItem, inventory: Inventory, cash: number): PlayerState => ({
@@ -71,6 +60,11 @@ export const collectLevelRewards = (player: PlayerState, levelReward: Reward): P
     cash: player.cash + levelReward.cash
 })
 
+export const goToRoom = (player: PlayerState, room: Room): PlayerState => ({
+    ...player,
+    inRoom: room
+})
+
 const calcPlayerLevel = (playerLevel: PlayerLevel, levelReward: Reward): PlayerLevel => {
     let newLevelVal: number
     let newExperienceVal: number
@@ -87,33 +81,4 @@ const calcPlayerLevel = (playerLevel: PlayerLevel, levelReward: Reward): PlayerL
         level: newLevelVal,
         progress: newExperienceVal
     }
-}
-export const goToRoom = (player: PlayerState, room: Room) => ({
-    ...player,
-    inRoom: room
-})
-
-export const startBattle = (battleState: Battle): Battle[] =>
-    areBothAlive(battleState) ?
-        generateBattleState(battleState) : [battleState]
-
-const areBothAlive = (battleState: Battle): boolean =>
-    battleState.player.health > 0 && battleState.opponent.health > 0
-
-const performAttack = (weapon: AttackItem, health: number) =>
-    sub(health, weapon.attackDamage)
-
-
-const generateBattleState = (battleState: Battle) => {
-    const state = {
-        player: {
-            ...battleState.player,
-            health: performAttack(battleState.opponent.weapon, battleState.player.health)
-        },
-        opponent: {
-            ...battleState.opponent,
-            health: performAttack(battleState.player.weapon, battleState.opponent.health)
-        },
-    }
-    return [state, ...startBattle(state)]
 }

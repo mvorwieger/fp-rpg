@@ -1,5 +1,7 @@
-import {Battle, startBattle, PlayerState, Unit} from './Player'
 import {Item} from './Item'
+import {Unit} from './UnitFactory'
+import {Battle, startBattle} from './Battle'
+import {PlayerState} from './Player'
 
 export interface Level {
     opponent: Unit,
