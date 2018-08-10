@@ -1,0 +1,1 @@
+export const sub = (num: number, subtract: number): number => num - subtract

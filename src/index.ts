@@ -1,12 +1,15 @@
-import {initPLayer, PlayerState} from './Player'
+import {initDefaultPlayer, initPLayer, PlayerState} from './Player'
 import {initAttackItem, initDefenceItem, initItem, Item} from './Item'
 
 import {DbPlayer, PlayerModel} from './Database/Player'
 import {DbItem} from './Database/Item'
 import {connect} from 'mongoose'
+import * as readline from 'readline'
+import {createQuestion} from './cli'
+import {initDefaultRoom} from './Room'
 
 (async () => {
-
+    /*
     try {
         await connect('mongodb://mongodb:27017/rpg', {useNewUrlParser: true})
     } catch (e) {
@@ -30,6 +33,7 @@ import {connect} from 'mongoose'
         },
         cash: 500
     }
+
     const findIdForItem = async (item: Item) =>
         new Promise((resolve, reject) => {
             const query = item,
@@ -44,7 +48,7 @@ import {connect} from 'mongoose'
     const findPlayerByName = (name: string) =>
         DbPlayer.findOne({name})
 
-
+    // TODO: find a better way of converting them, maybe with build in mongoose functions
     const convertPlayerToDb = async (player: PlayerState): Promise<PlayerModel> =>
         new DbPlayer({
             ...player,
@@ -62,6 +66,8 @@ import {connect} from 'mongoose'
     } catch (e) {
         console.log(e)
     }
+    */
+    createQuestion("Type 'help'")
 })()
 
 

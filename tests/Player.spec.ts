@@ -1,5 +1,5 @@
 import "jasmine"
-import {battle, Battle, initDefaultPlayer, initPLayer, PlayerState} from '../src/Player'
+import {startBattle, Battle, initDefaultPlayer, initPLayer, PlayerState} from '../src/Player'
 import {initAttackItem, initDefenceItem} from '../src/Item'
 import {initInventory} from '../src/Inventory'
 
@@ -31,7 +31,7 @@ describe('Player', function () {
         )
     })
 
-    it('should create a battle', function () {
+    it('should create a startBattle', function () {
         p.health = 50
         o.health = 50
         p.weapon.attackDamage = 5
@@ -52,6 +52,6 @@ describe('Player', function () {
                 health: expectedHealth
             }
         }
-        expect(battle(battleState)).toContain(afterOneTurnBattleState)
+        expect(startBattle(battleState)).toContain(afterOneTurnBattleState)
     })
 })
