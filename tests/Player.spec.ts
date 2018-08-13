@@ -1,7 +1,8 @@
 import "jasmine"
-import {startBattle, Battle, initDefaultPlayer, initPLayer, PlayerState} from '../src/Player'
+import {initDefaultPlayer, initPLayer, PlayerState} from '../src/Player'
 import {initAttackItem, initDefenceItem} from '../src/Item'
 import {initInventory} from '../src/Inventory'
+import {Battle, startBattle} from '../src/Battle'
 
 let p: PlayerState
 let o: PlayerState
