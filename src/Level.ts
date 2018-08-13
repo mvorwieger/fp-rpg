@@ -1,9 +1,10 @@
-import {Battle, battle, initDefaultPlayer, pickUpItem, PlayerState} from './Player'
-import {initAttackItem, Item} from './Item'
+import {Item} from './Item'
+import {Unit} from './UnitFactory'
+import {Battle, startBattle} from './Battle'
+import {PlayerState} from './Player'
 
 export interface Level {
-    player: PlayerState,
-    opponent: PlayerState,
+    opponent: Unit,
     reward: Reward
 }
 
@@ -19,16 +20,15 @@ export interface Reward {
     loot?: Item,
 }
 
-export const initLevel = (player: PlayerState, opponent: PlayerState, reward: Reward): Level => ({
-    player,
+export const initLevel = (opponent: Unit, reward: Reward): Level => ({
     opponent,
     reward
 })
 
 export const noReward = (): Reward => ({experience: 0, cash: 0})
 
-export const startLevel = (level: Level): LevelResult => {
-    const battleLogs = battle({player: level.player, opponent: level.opponent})
+export const startLevel = (player: PlayerState, level: Level): LevelResult => {
+    const battleLogs = startBattle({player: player, opponent: level.opponent})
     const didPlayerWin = playerWon(battleLogs)
 
     return {
@@ -41,13 +41,3 @@ export const startLevel = (level: Level): LevelResult => {
 const playerWon = (battleState: Battle[]) => tail(battleState).player.health > 0
 
 const tail = (arr: any[]) => arr[arr.length - 1]
-
-const player = initDefaultPlayer()
-const level = {
-    player: player,
-    opponent: initDefaultPlayer(),
-    reward: {
-        experience: 50,
-        loot: initAttackItem("TestItem", 50, 10)
-    }
-}

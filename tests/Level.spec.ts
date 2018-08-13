@@ -9,7 +9,7 @@ describe('Level', function () {
     beforeEach(() => {
         player = initDefaultPlayer()
         opponent = initDefaultPlayer()
-        level = initLevel(player, opponent, noReward())
+        level = initLevel(opponent, noReward())
     })
     describe('initLevel', function () {
         it('should create', function () {
@@ -25,8 +25,8 @@ describe('Level', function () {
     describe('startLevel', function () {
         it('player should win when opponent is weaker', function () {
             opponent.health = 50
-            level = initLevel(player, opponent, noReward())
-            const levelRes = startLevel(level)
+            level = initLevel(opponent, noReward())
+            const levelRes = startLevel(player, level)
             console.dir(levelRes, {depth: null})
             expect(levelRes.playerWon).toBeTruthy()
         })
