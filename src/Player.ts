@@ -1,5 +1,5 @@
 import {addItemToInventory, initInventory, Inventory, removeItemFromInventoryByName} from './Inventory'
-import {AttackItem, DefenceItem, initAttackItem, initDefenceItem, Item} from './Item'
+import {AttackItem, DefenceItem, initAttackItem, initDefenceItem, initItem, Item} from './Item'
 import {Reward} from './Level'
 import {initDefaultRoom, Room} from './Room'
 import {Unit} from './UnitFactory'
@@ -35,7 +35,7 @@ export const initDefaultPlayer = (): PlayerState => ({
     },
     weapon: initAttackItem("Bare Hand", 0, 5),
     shield: initDefenceItem("Bare Hand", 0, 5),
-    inventory: initInventory(),
+    inventory: initInventory([initItem('Perl', 5000)]),
     cash: 0,
     inRoom:  initDefaultRoom()
 })
@@ -55,7 +55,7 @@ export const collectLevelRewards = (player: PlayerState, levelReward: Reward): P
     ...player,
     level: calcPlayerLevel(player.level, levelReward),
     inventory: {
-        items: [...player.inventory.items, levelReward.loot]
+        items: levelReward.loot ? [...player.inventory.items, levelReward.loot] : player.inventory.items
     },
     cash: player.cash + levelReward.cash
 })
@@ -66,9 +66,9 @@ export const goToRoom = (player: PlayerState, room: Room): PlayerState => ({
 })
 
 const calcPlayerLevel = (playerLevel: PlayerLevel, levelReward: Reward): PlayerLevel => {
-    let newLevelVal: number
-    let newExperienceVal: number
+    let newLevelVal: number = playerLevel.level
     const combinedExp = levelReward.experience + playerLevel.progress
+    let newExperienceVal: number = combinedExp
 
     if (combinedExp >= 100) {
         const levelGain = Math.trunc(combinedExp / 100)

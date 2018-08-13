@@ -1,12 +1,5 @@
-import {initDefaultPlayer, initPLayer, PlayerState} from './Player'
-import {initAttackItem, initDefenceItem, initItem, Item} from './Item'
+import {createQuestion} from './cli/cli'
 
-import {DbPlayer, PlayerModel} from './Database/Player'
-import {DbItem} from './Database/Item'
-import {connect} from 'mongoose'
-import * as readline from 'readline'
-import {createQuestion} from './cli'
-import {initDefaultRoom} from './Room'
 
 (async () => {
     /*

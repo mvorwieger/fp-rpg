@@ -8,11 +8,11 @@ export const cliData = {
         description: 'observe | Observe the current room you re in'
     },
     goTo: {
-        command: 'goTo',
+        command: 'goto',
         description: 'goTo X | Goes to Position/Room X'
     },
     pickUp: {
-        command: 'pickUp',
+        command: 'pickup',
         description: 'pickUp X | Picks up Item X and puts it into your Inventory'
     },
     inventory: {
