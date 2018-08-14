@@ -1,7 +1,6 @@
 import * as readline from "readline"
 import {initDefaultPlayer, PlayerState} from '../Player'
 import {cliData} from '../data/cli'
-import {GlobalPlayerState} from '../GlobalPlayerState'
 import {helpHandler} from './helpHandler'
 import {pickUpHandler} from './pickUpHandler'
 import {goToHandler} from './goToHandler'
@@ -9,7 +8,7 @@ import {observeHandler} from './observeHandler'
 import {inventoryHandler} from './inventoryHandler'
 import {characterHandler} from './characterHandler'
 import {battleHandler} from './battleHandler'
-import {spawnRandomRoom} from '../Room'
+import {throwAwayHandler} from './throwAwayHandler'
 
 /**
  * TODO: Make the Handlers More abstract so they dont actually call console.log directly but just pass the data to functions that do
@@ -19,8 +18,6 @@ const r1 = readline.createInterface({
     input: process.stdin,
     output: process.stdout
 })
-
-let player: PlayerState = initDefaultPlayer()
 
 const performCommand = (playerState: PlayerState, command: string, value: any): PlayerState => {
     switch (command) {
@@ -39,6 +36,8 @@ const performCommand = (playerState: PlayerState, command: string, value: any): 
             return characterHandler(playerState)
         case cliData.battle.command:
             return battleHandler(playerState, parseInt(value))
+        case cliData.throwAway.command:
+            return throwAwayHandler(playerState, value)
         case 'r':
             return initDefaultPlayer()
         default:
@@ -47,19 +46,16 @@ const performCommand = (playerState: PlayerState, command: string, value: any): 
 }
 
 
-const inputHandler = (input: string) => {
+const inputHandler = (input: string, player: PlayerState) => {
     let cmd = input.split(' ')
     let command = cmd[0].toLowerCase()
-    let b ='b'
     let value = cmd[1]
 
-    // Very scary global assignment
     player = performCommand(player, command, value)
-    player.inRoom = spawnRandomRoom(player.level.level, player.inRoom)
-    createQuestion('')
+    createQuestion('---', player)
 }
 
-export var createQuestion = (q: string) => {
-    r1.question(`${q} \n`, inputHandler)
+export var createQuestion = (q: string, player: PlayerState) => {
+    r1.question(`${q} \n`, (input) => inputHandler(input, player))
 }
 

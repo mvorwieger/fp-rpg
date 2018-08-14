@@ -15,8 +15,9 @@ const initUnit = (health: number, name: string, weapon: AttackItem, shield: Defe
 })
 const getRandomUnitName = (): string => 'Orc'
 
-const getWeaponForDifficulty = (difficutlty: number): AttackItem =>
-    initAttackItem('WeaponDummy', 10, difficutlty * 2)
+// TODO: Create a "UnitFactory" that generates units for us and we just need to pass the level of that unit
+const getWeaponForDifficulty = (difficulty: number): AttackItem =>
+    initAttackItem('WeaponDummy', 10, difficulty * 2)
 
 const getShieldForDifficulty = (difficulty: number): DefenceItem =>
     initDefenceItem('ShieldDummy', 10, difficulty * 0.5)

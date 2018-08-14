@@ -18,7 +18,6 @@ const areBothAlive = (battleState: Battle): boolean =>
 const performAttack = (weapon: AttackItem, health: number) =>
     sub(health, weapon.attackDamage)
 
-
 const generateBattleState = (battleState: Battle) => {
     const state = {
         player: {

@@ -1,4 +1,5 @@
 import {createQuestion} from './cli/cli'
+import {initDefaultPlayer} from './Player'
 
 
 (async () => {
@@ -60,7 +61,8 @@ import {createQuestion} from './cli/cli'
         console.log(e)
     }
     */
-    createQuestion("Type 'help'")
+    const player = initDefaultPlayer()
+    createQuestion("Type 'help'", player)
 })()
 
 
