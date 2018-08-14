@@ -9,6 +9,7 @@ import {observeHandler} from './observeHandler'
 import {inventoryHandler} from './inventoryHandler'
 import {characterHandler} from './characterHandler'
 import {battleHandler} from './battleHandler'
+import {spawnRandomRoom} from '../Room'
 
 /**
  * TODO: Make the Handlers More abstract so they dont actually call console.log directly but just pass the data to functions that do
@@ -19,30 +20,25 @@ const r1 = readline.createInterface({
     output: process.stdout
 })
 
+let player: PlayerState = initDefaultPlayer()
+
 const performCommand = (playerState: PlayerState, command: string, value: any): PlayerState => {
     switch (command) {
         case cliData.help.command:
             helpHandler()
             return playerState
-            break;
         case cliData.pickUp.command:
             return pickUpHandler(playerState, value)
-            break;
         case cliData.goTo.command:
             return goToHandler(playerState, value)
-            break;
         case cliData.observe.command:
             return observeHandler(playerState)
-            break;
         case cliData.inventory.command:
             return inventoryHandler(playerState)
-            break;
         case cliData.character.command:
             return characterHandler(playerState)
-            break;
         case cliData.battle.command:
             return battleHandler(playerState, parseInt(value))
-            break;
         case 'r':
             return initDefaultPlayer()
         default:
@@ -50,14 +46,16 @@ const performCommand = (playerState: PlayerState, command: string, value: any): 
     }
 }
 
+
 const inputHandler = (input: string) => {
     let cmd = input.split(' ')
     let command = cmd[0].toLowerCase()
     let b ='b'
     let value = cmd[1]
-    let playerInstance = GlobalPlayerState.getInstance()
-    let player = playerInstance.get()
-    playerInstance.set(performCommand(player, command, value))
+
+    // Very scary global assignment
+    player = performCommand(player, command, value)
+    player.inRoom = spawnRandomRoom(player.level.level, player.inRoom)
     createQuestion('')
 }
 

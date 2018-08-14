@@ -33,5 +33,6 @@ export const battleHandler = (player: PlayerState, indexOfLevel: number): Player
         return collectLevelRewards(p, battleLogs.reward)
     } else {
         console.log('You Lost this fight')
+        return player
     }
 }
