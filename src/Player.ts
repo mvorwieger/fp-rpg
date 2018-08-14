@@ -30,12 +30,12 @@ export const initDefaultPlayer = (): PlayerState => ({
     health: 100,
     name: 'Default Player',
     level: {
-        level: 0,
+        level: 1,
         progress: 0
     },
     weapon: initAttackItem("Bare Hand", 0, 5),
     shield: initDefenceItem("Bare Hand", 0, 5),
-    inventory: initInventory([initItem('Perl', 5000)]),
+    inventory: initInventory([initItem('Perl', 5000), initItem('oPerl', 5000)]),
     cash: 0,
     inRoom:  initDefaultRoom()
 })

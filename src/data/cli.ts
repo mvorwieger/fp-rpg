@@ -15,6 +15,10 @@ export const cliData = {
         command: 'pickup',
         description: 'pickUp X | Picks up Item X and puts it into your Inventory'
     },
+    throwAway: {
+        command: 'throwaway',
+        description: 'throwAway X | Throw away a item by either giving the name of the item or the index of the item'
+    },
     inventory: {
         command: 'inventory',
         description: 'inventory | Displays all the content of your inventory'

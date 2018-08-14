@@ -1,5 +1,6 @@
 ## Fp-Rpg
 
 Rules:
-+ No Classes
-+ No mutating
++ no classes
++ no mutation
++ no global state

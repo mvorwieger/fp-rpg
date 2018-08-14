@@ -1,9 +1,10 @@
 import {collectLevelRewards, PlayerState} from '../Player'
 import {startLevel} from '../Level'
 import {Battle} from '../Battle'
+import {spawnRandomRoom} from '../Room'
 
 export const battleHandler = (player: PlayerState, indexOfLevel: number): PlayerState => {
-    let p = player
+    let p = {...player}
     const level = p.inRoom.levels[indexOfLevel]
     if(!level) {
         console.log('No Level found with that index')
@@ -30,6 +31,7 @@ export const battleHandler = (player: PlayerState, indexOfLevel: number): Player
          * Filter out level so you can only complete a level once
          */
         p.inRoom.levels = p.inRoom.levels.filter((v, i) =>  i != indexOfLevel)
+        p.inRoom = spawnRandomRoom(player.level.level, player.inRoom)
         return collectLevelRewards(p, battleLogs.reward)
     } else {
         console.log('You Lost this fight')

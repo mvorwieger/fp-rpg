@@ -1,4 +1,4 @@
-import {Item} from './Item'
+import {initItem, Item} from './Item'
 import {initLevel, Level, Reward} from './Level'
 import {createUnitForPlayerLevel} from './UnitFactory'
 import {PlayerState} from './Player'
@@ -20,7 +20,8 @@ export const initRoom = (name: string, roomsNearby: Room[], levels?: Level[], it
 export const initDefaultRoom = (): Room => {
     let roomOne: Room = {
         levels: [initLevel(createUnitForPlayerLevel(1), <Reward>{experience: 50, cash: 50})],
-        name: 'Room_1'
+        name: 'Room_1',
+        items: [initItem("Perl", 5000)]
     }
 
     let roomTwo: Room = {
@@ -32,13 +33,14 @@ export const initDefaultRoom = (): Room => {
 
     return roomOne
 }
+
 let roomCounter = 0
 
 export const spawnRandomRoom = (playerLevel: number, currentRoom: Room): Room => {
-    let currRoom = Object.assign({}, currentRoom)
+    let currRoom = {...currentRoom}
     let newRoom: Room = {
         levels: [initLevel(createUnitForPlayerLevel(playerLevel), <Reward>{experience: 50, cash: 50})],
-        name: 'r_'+roomCounter
+        name: 'r'+roomCounter
     }
     roomCounter++
 
