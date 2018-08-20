@@ -14,10 +14,6 @@ import {throwAwayHandler} from './throwAwayHandler'
  * TODO: Make the Handlers More abstract so they dont actually call console.log directly but just pass the data to functions that do
  * TODO: That way we can swap the implementation of our view easier later on
  */
-const r1 = readline.createInterface({
-    input: process.stdin,
-    output: process.stdout
-})
 
 const performCommand = (playerState: PlayerState, command: string, value: any): PlayerState => {
     switch (command) {
@@ -56,6 +52,12 @@ const inputHandler = (input: string, player: PlayerState) => {
 }
 
 export var createQuestion = (q: string, player: PlayerState) => {
+    const r1 = readline.createInterface({
+        input: process.stdin,
+        output: process.stdout,
+        terminal: false
+    })
+
     r1.question(`${q} \n`, (input) => inputHandler(input, player))
 }
 
