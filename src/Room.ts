@@ -34,6 +34,11 @@ export const initDefaultRoom = (): Room => {
     return roomOne
 }
 
+export const removeItemFromRoom = (item: Item, room: Room): Room => ({
+    ...room,
+    items: room.items.filter((roomItem: Item) => roomItem.name != item.name) 
+})
+
 let roomCounter = 0
 
 export const spawnRandomRoom = (playerLevel: number, currentRoom: Room): Room => {
