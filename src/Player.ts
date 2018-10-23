@@ -1,7 +1,7 @@
 import {addItemToInventory, initInventory, Inventory, removeItemFromInventoryByName} from './Inventory'
 import {AttackItem, DefenceItem, initAttackItem, initDefenceItem, initItem, Item} from './Item'
 import {Reward} from './Level'
-import {initDefaultRoom, Room} from './Room'
+import {initDefaultRoom, Room, removeItemFromRoom} from './Room'
 import {Unit} from './UnitFactory'
 
 export interface PlayerState extends Unit {
@@ -43,7 +43,8 @@ export const initDefaultPlayer = (): PlayerState => ({
 
 export const pickUpItem = (player: PlayerState, item: Item): PlayerState => ({
     ...player,
-    inventory: addItemToInventory(player.inventory, item)
+    inventory: addItemToInventory(player.inventory, item),
+    inRoom: removeItemFromRoom(item, player.inRoom)
 })
 
 export const throwAwayItem = (player: PlayerState, name: string): PlayerState => ({

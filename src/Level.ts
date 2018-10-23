@@ -36,8 +36,7 @@ export const startLevel = (player: PlayerState, level: Level): LevelResult => {
         logs: battleLogs,
         reward: didPlayerWin ? level.reward : noReward()
     }
-}
-
+} 
 const playerWon = (battleState: Battle[]) => tail(battleState).player.health > 0
 
 const tail = (arr: any[]) => arr[arr.length - 1]

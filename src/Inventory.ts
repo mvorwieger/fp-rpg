@@ -22,3 +22,7 @@ export const resetInventory = (inventory: Inventory): Inventory => ({
     ...inventory,
     items: []
 })
+
+export const findItemByName = (name: String, inventory: Inventory) => {
+    return inventory.items.filter((item: Item) => item.name === name)
+}

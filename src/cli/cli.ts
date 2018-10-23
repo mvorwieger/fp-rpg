@@ -46,18 +46,29 @@ const inputHandler = (input: string, player: PlayerState) => {
     let cmd = input.split(' ')
     let command = cmd[0].toLowerCase()
     let value = cmd[1]
-
+    
     player = performCommand(player, command, value)
-    createQuestion('---', player)
+    console.log("action performed")
+    setPlayerState(player)
+}
+
+const r1 = readline.createInterface({
+    input: process.stdin,
+    output: process.stdout,
+    terminal: false
+})
+
+let gPlayer: PlayerState;
+
+export var setPlayerState = (player: PlayerState) => {
+    gPlayer = player
 }
 
 export var createQuestion = (q: string, player: PlayerState) => {
-    const r1 = readline.createInterface({
-        input: process.stdin,
-        output: process.stdout,
-        terminal: false
+    console.log(q + "\n")
+    gPlayer = player
+    r1.on("line", (line) => {
+        inputHandler(line, gPlayer)
     })
-
-    r1.question(`${q} \n`, (input) => inputHandler(input, player))
 }
 
