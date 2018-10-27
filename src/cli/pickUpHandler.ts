@@ -1,4 +1,4 @@
-import {pickUpItem, PlayerState} from '../Player'
+import {pickUpItem, PlayerState, updateRoomReferences} from '../Player'
 import {Item} from '../Item'
 
 export const pickUpHandler = (player: PlayerState, itemName: string): PlayerState => {
@@ -14,5 +14,5 @@ export const pickUpHandler = (player: PlayerState, itemName: string): PlayerStat
     }
 
     console.log(`You've picked up ${desiredItem.name}`)
-    return pickUpItem(player, desiredItem)
+    return updateRoomReferences(pickUpItem(player, desiredItem))
 }
