@@ -33,11 +33,11 @@ export const initDefaultPlayer = (): PlayerState => ({
         level: 1,
         progress: 0
     },
-    weapon: initAttackItem("Wooden Sword", 0, 5),
-    shield: initDefenceItem("Wooden Shield", 0, 5),
+    weapon: initAttackItem('Wooden Sword', 0, 5),
+    shield: initDefenceItem('Wooden Shield', 0, 5),
     inventory: initInventory([initItem('Perl', 5000), initItem('oPerl', 5000)]),
     cash: 0,
-    inRoom:  initDefaultRoom()
+    inRoom: initDefaultRoom()
 })
 
 
@@ -66,6 +66,19 @@ export const goToRoom = (player: PlayerState, room: Room): PlayerState => ({
     inRoom: room
 })
 
+export const updateRoomReferences = (player: PlayerState): PlayerState => ({
+    ...player,
+    inRoom: {
+        ...player.inRoom,
+        roomsNearby: player.inRoom.roomsNearby.map((refRoom: Room) => ({
+            ...refRoom,
+            roomsNearby: refRoom.roomsNearby.map((innerRefRoom: Room) =>
+                innerRefRoom.name === player.inRoom.name ? player.inRoom : innerRefRoom
+            )
+        }))
+    }
+})
+
 const calcPlayerLevel = (playerLevel: PlayerLevel, levelReward: Reward): PlayerLevel => {
     let newLevelVal: number = playerLevel.level
     const combinedExp = levelReward.experience + playerLevel.progress
@@ -73,8 +86,8 @@ const calcPlayerLevel = (playerLevel: PlayerLevel, levelReward: Reward): PlayerL
 
     if (combinedExp >= 100) {
         const levelGain = Math.trunc(combinedExp / 100)
-        newLevelVal = levelGain + playerLevel.level
-        newExperienceVal = combinedExp - levelGain * 100
+        newLevelVal += levelGain
+        newExperienceVal -= levelGain * 100
     }
 
     return {

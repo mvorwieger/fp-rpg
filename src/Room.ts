@@ -45,7 +45,7 @@ export const spawnRandomRoom = (playerLevel: number, currentRoom: Room): Room =>
     let currRoom = {...currentRoom}
     let newRoom: Room = {
         levels: [initLevel(createUnitForPlayerLevel(playerLevel), <Reward>{experience: 50, cash: 50})],
-        name: 'r'+roomCounter
+        name: 'r' + roomCounter
     }
     roomCounter++
 
@@ -53,4 +53,3 @@ export const spawnRandomRoom = (playerLevel: number, currentRoom: Room): Room =>
     currRoom.roomsNearby = [...currRoom.roomsNearby, newRoom]
     return currRoom
 }
-
