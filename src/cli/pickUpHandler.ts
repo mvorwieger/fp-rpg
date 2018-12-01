@@ -2,7 +2,7 @@ import {pickUpItem, PlayerState, updateRoomReferences} from '../Player'
 import {Item} from '../Item'
 
 export const pickUpHandler = (player: PlayerState, itemName: string): PlayerState => {
-    let desiredItem: Item
+    let desiredItem: Item | undefined
 
     if(player.inRoom.items) {
         desiredItem = player.inRoom.items.find(item => item.name.toLowerCase() === itemName.toLowerCase())

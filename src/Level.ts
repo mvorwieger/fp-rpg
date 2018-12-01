@@ -17,7 +17,7 @@ export interface LevelResult {
 export interface Reward {
     experience: number,
     cash: number
-    loot?: Item,
+    loot: Item[],
 }
 
 export const initLevel = (opponent: Unit, reward: Reward): Level => ({
@@ -25,7 +25,7 @@ export const initLevel = (opponent: Unit, reward: Reward): Level => ({
     reward
 })
 
-export const noReward = (): Reward => ({experience: 0, cash: 0})
+export const noReward = (): Reward => ({experience: 0, cash: 0, loot: []})
 
 export const startLevel = (player: PlayerState, level: Level): LevelResult => {
     const battleLogs = startBattle({player: player, opponent: level.opponent})

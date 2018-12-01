@@ -17,7 +17,6 @@ describe('Level', function () {
         })
 
         it('should have proper reward', function () {
-            expect(level.reward.loot).toBe(noReward().loot)
             expect(level.reward.experience).toBe(noReward().experience)
             expect(level.reward.cash).toBe(noReward().cash)
         })
@@ -27,7 +26,6 @@ describe('Level', function () {
             opponent.health = 50
             level = initLevel(opponent, noReward())
             const levelRes = startLevel(player, level)
-            console.dir(levelRes, {depth: null})
             expect(levelRes.playerWon).toBeTruthy()
         })
     })

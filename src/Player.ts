@@ -8,7 +8,7 @@ export interface PlayerState extends Unit {
     level: PlayerLevel,
     inventory: Inventory,
     cash: number,
-    inRoom?: Room
+    inRoom: Room
 }
 
 export interface PlayerLevel {
@@ -16,14 +16,22 @@ export interface PlayerLevel {
     progress: number
 }
 
-export const initPLayer = (health: number, level: PlayerLevel, name: string, weapon: AttackItem, shield: DefenceItem, inventory: Inventory, cash: number): PlayerState => ({
+export const initPLayer = (health: number, 
+                           level: PlayerLevel, 
+                           name: string,
+                           weapon: AttackItem,
+                           shield: DefenceItem,
+                           inventory: Inventory,
+                           cash: number,
+                           inRoom: Room = initDefaultRoom()): PlayerState => ({
     health,
     name,
     level,
     weapon,
     shield,
     inventory,
-    cash
+    cash,
+    inRoom
 })
 
 export const initDefaultPlayer = (): PlayerState => ({
@@ -56,7 +64,7 @@ export const collectLevelRewards = (player: PlayerState, levelReward: Reward): P
     ...player,
     level: calcPlayerLevel(player.level, levelReward),
     inventory: {
-        items: levelReward.loot ? [...player.inventory.items, levelReward.loot] : player.inventory.items
+        items: levelReward.loot ? [...player.inventory.items, ...levelReward.loot] : player.inventory.items
     },
     cash: player.cash + levelReward.cash
 })

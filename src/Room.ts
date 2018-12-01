@@ -1,32 +1,30 @@
 import {initItem, Item} from './Item'
 import {initLevel, Level, Reward} from './Level'
 import {createUnitForPlayerLevel} from './UnitFactory'
-import {PlayerState} from './Player'
 
 export interface Room {
-    levels?: Level[],
-    items?: Item[],
+    levels: Level[],
+    items: Item[],
     name: string,
-    roomsNearby?: Room[]
+    roomsNearby: Room[]
 }
 
-export const initRoom = (name: string, roomsNearby: Room[], levels?: Level[], items?: Item[]): Room => ({
-    levels,
-    items,
+export const initRoom = (name: string, roomsNearby: Room[] = [], levels: Level[] = [], items: Item[] = []): Room => ({
+    name,
     roomsNearby,
-    name
+    levels,
+    items
 })
 
 export const initDefaultRoom = (): Room => {
-    let roomOne: Room = {
-        levels: [initLevel(createUnitForPlayerLevel(1), <Reward>{experience: 50, cash: 50})],
-        name: 'Room_1',
-        items: [initItem("Perl", 5000)]
-    }
+    let roomOne: Room = initRoom(
+        'Room_1',
+        [],
+        [initLevel(createUnitForPlayerLevel(1), <Reward>{experience: 50, cash: 50})],
+        [initItem("Perl", 5000)]
+    )
 
-    let roomTwo: Room = {
-        name: 'Room_2'
-    }
+    let roomTwo: Room = initRoom("roomTwo") ;
 
     roomTwo.roomsNearby = [roomOne]
     roomOne.roomsNearby = [roomTwo]
@@ -42,11 +40,12 @@ export const removeItemFromRoom = (item: Item, room: Room): Room => ({
 let roomCounter = 0
 
 export const spawnRandomRoom = (playerLevel: number, currentRoom: Room): Room => {
-    let currRoom = {...currentRoom}
-    let newRoom: Room = {
-        levels: [initLevel(createUnitForPlayerLevel(playerLevel), <Reward>{experience: 50, cash: 50})],
-        name: 'r' + roomCounter
-    }
+    let currRoom: Room = {...currentRoom}
+    let newRoom: Room = initRoom(
+        'r' + roomCounter,
+        [],
+        [initLevel(createUnitForPlayerLevel(playerLevel), <Reward>{experience: 50, cash: 50})]
+    );
     roomCounter++
 
     newRoom.roomsNearby = [currRoom]

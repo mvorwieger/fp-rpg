@@ -2,7 +2,7 @@ import {PlayerState} from '../Player'
 import {Item} from '../Item'
 
 export const throwAwayHandler = (player: PlayerState, itemNameOrIndex: string): PlayerState => {
-    let itemsAfterThrowAway: Item[]
+    let itemsAfterThrowAway: Item[] = player.inventory.items;
     const desiredItemToThrowAwayByName = player.inventory.items.find(item => item.name.toLowerCase() == itemNameOrIndex.toLowerCase())
     const desiredItemToThrowAwayByIndex = player.inventory.items.find((item: Item, index: number) => index === parseInt(itemNameOrIndex))
 

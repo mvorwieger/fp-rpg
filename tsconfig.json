@@ -9,6 +9,8 @@
     "outDir": "dist",
     "baseUrl": ".",
     "experimentalDecorators": true,
+    "noImplicitAny": true,
+    "strictNullChecks": true,
     "paths": {
       "*": [
         "node_modules/*",
