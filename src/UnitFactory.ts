@@ -1,11 +1,4 @@
-import {AttackItem, DefenceItem, initAttackItem, initDefenceItem} from './Item'
-
-export interface Unit {
-    health: number
-    name: string,
-    weapon: AttackItem,
-    shield: DefenceItem
-}
+import { AttackItem, DefenceItem, initAttackItem, initDefenceItem } from './Item'
 
 const initUnit = (health: number, name: string, weapon: AttackItem, shield: DefenceItem): Unit => ({
     health,

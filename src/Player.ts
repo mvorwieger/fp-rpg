@@ -1,8 +1,8 @@
-import {addItemToInventory, initInventory, Inventory, removeItemFromInventoryByName} from './Inventory'
-import {AttackItem, DefenceItem, initAttackItem, initDefenceItem, initItem, Item} from './Item'
-import {Reward} from './Level'
-import {initDefaultRoom, Room, removeItemFromRoom} from './Room'
-import {Unit} from './UnitFactory'
+import { addItemToInventory, initInventory, Inventory, removeItemFromInventoryByName } from './Inventory'
+import { AttackItem, DefenceItem, initAttackItem, initDefenceItem, initItem, Item } from './Item'
+import { Reward } from './Level'
+import { initDefaultRoom, Room, removeItemFromRoom } from './Room'
+import { Unit } from './Unit';
 
 export interface PlayerState extends Unit {
     level: PlayerLevel,
@@ -16,23 +16,23 @@ export interface PlayerLevel {
     progress: number
 }
 
-export const initPLayer = (health: number, 
-                           level: PlayerLevel, 
-                           name: string,
-                           weapon: AttackItem,
-                           shield: DefenceItem,
-                           inventory: Inventory,
-                           cash: number,
-                           inRoom: Room = initDefaultRoom()): PlayerState => ({
-    health,
-    name,
-    level,
-    weapon,
-    shield,
-    inventory,
-    cash,
-    inRoom
-})
+export const initPLayer = (health: number,
+    level: PlayerLevel,
+    name: string,
+    weapon: AttackItem,
+    shield: DefenceItem,
+    inventory: Inventory,
+    cash: number,
+    inRoom: Room = initDefaultRoom()): PlayerState => ({
+        health,
+        name,
+        level,
+        weapon,
+        shield,
+        inventory,
+        cash,
+        inRoom
+    })
 
 export const initDefaultPlayer = (): PlayerState => ({
     health: 100,
