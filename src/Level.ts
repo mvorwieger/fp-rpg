@@ -1,7 +1,7 @@
-import {Item} from './Item'
-import {Unit} from './UnitFactory'
-import {Battle, startBattle} from './Battle'
-import {PlayerState} from './Player'
+import { Item } from './Item'
+import { Battle, startBattle } from './Battle'
+import { PlayerState } from './Player'
+import { Unit } from './Unit';
 
 export interface Level {
     opponent: Unit,
@@ -25,10 +25,10 @@ export const initLevel = (opponent: Unit, reward: Reward): Level => ({
     reward
 })
 
-export const noReward = (): Reward => ({experience: 0, cash: 0, loot: []})
+export const noReward = (): Reward => ({ experience: 0, cash: 0, loot: [] })
 
 export const startLevel = (player: PlayerState, level: Level): LevelResult => {
-    const battleLogs = startBattle({player: player, opponent: level.opponent})
+    const battleLogs = startBattle({ player: player, opponent: level.opponent })
     const didPlayerWin = playerWon(battleLogs)
 
     return {
@@ -36,7 +36,7 @@ export const startLevel = (player: PlayerState, level: Level): LevelResult => {
         logs: battleLogs,
         reward: didPlayerWin ? level.reward : noReward()
     }
-} 
+}
 const playerWon = (battleState: Battle[]) => tail(battleState).player.health > 0
 
 const tail = (arr: any[]) => arr[arr.length - 1]

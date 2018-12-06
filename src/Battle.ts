@@ -1,7 +1,7 @@
-import {AttackItem} from './Item'
-import {sub} from './util'
-import {PlayerState} from './Player'
-import {Unit} from './UnitFactory'
+import { AttackItem } from './Item'
+import { sub } from './util'
+import { PlayerState } from './Player'
+import { Unit } from './Unit'
 
 export interface Battle {
     player: PlayerState,

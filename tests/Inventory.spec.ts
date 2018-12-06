@@ -6,7 +6,7 @@ import {
     removeItemFromInventoryByName,
     resetInventory
 } from '../src/Inventory'
-import {initItem, Item} from '../src/Item'
+import { initItem, Item } from '../src/Item'
 
 let inventory: Inventory
 describe('Inventory', function () {
@@ -34,7 +34,9 @@ describe('Inventory', function () {
             const item: Item = initItem(itemName, 0)
             inventory.items = [item]
             const newInvetory = removeItemFromInventoryByName(inventory, itemName)
-            expect(newInvetory.items).not.toContain(item)
+            newInvetory.items.forEach((item) => {
+                expect(item.name).toEqual(itemName)
+            })
         })
     })
 

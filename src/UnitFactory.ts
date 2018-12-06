@@ -1,4 +1,5 @@
 import { AttackItem, DefenceItem, initAttackItem, initDefenceItem } from './Item'
+import { Unit } from './Unit';
 
 const initUnit = (health: number, name: string, weapon: AttackItem, shield: DefenceItem): Unit => ({
     health,
